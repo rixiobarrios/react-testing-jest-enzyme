@@ -23,7 +23,7 @@ $ create-react-app testing-lesson
 
 We can run `$ yarn test` right now and see what happens.
 
-![](./initial-tests.png)
+![](./images/initial-tests.png)
 
 We get some feedback from the app that our tests are all passing!
 
