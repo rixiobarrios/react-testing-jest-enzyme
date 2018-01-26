@@ -194,7 +194,7 @@ Let's now create a To Do list app using test driven development. First let's cre
 We will have two components -- a `ToDos` component which will hold individual `Todo` components.
 ```bash
 $ mkdir src/components/ToDos
-$ touch ToDo{s.js,.js,s.test.js}
+$ touch src/components/ToDos/ToDo{s.js,.js,s.test.js}
 ```
 
 Now let's scaffold the configuration for our testing file.
