@@ -250,7 +250,7 @@ class ToDos extends Component {
   render () {
     return (
       <div>
-        {this.state.toDos.map((task, idx) => 
+        {this.props.tasks.map((task, idx) => 
           <ToDo task={task} key={idx} />
         )}
       </div>
@@ -288,7 +288,7 @@ import React from 'react'
 const ToDo = ({ task }) => {
   return (
     <div>
-+      <div>{task.task}</div>
++      <div className='task-name'>{task.task}</div>
     </div>
   )
 }
