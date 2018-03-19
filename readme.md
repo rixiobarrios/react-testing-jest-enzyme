@@ -1,13 +1,13 @@
 # Testing in React with Jest
 
-## Learning Objectives
+## Learning Objectives (5 min / 0:05)
 * Discuss the features of Jest and Enzyme
 * Finish setting up a development environment with create-react-app
 * Implement test driven development processes
 * Use Jest and Enzyme to test React applications
 
-## Quick Review
 * What is automated testing?
+## Quick Review (5 min / 0:10)
 
 <details><summary>Answer</summary>
 When we write code to test our other code!</details>
@@ -28,7 +28,7 @@ Mocha, Chai, SuperTest</details>
 * What types of testing are there?
 
 <details><summary>Answer</summary>
-Smoke, functinal, regression, performance, usability, security, compatibility, recovery, user acceptance, unit, integration, end-to-end, manual, automated
+Smoke, functional, regression, performance, usability, security, compatibility, recovery, user acceptance, unit, integration, end-to-end, manual, automated
 </details>
 
 
@@ -38,13 +38,19 @@ Jest is an easy to configure testing framework built by Facebook for testing Jav
 ## What is Enzyme?
 Enzyme mimics JQuery's DOM manipulation library to make testing React easier. It allows us to grab the state of the component, simulate user actions, and grab elements from the virtual DOM.
 
-## Configuration
+## Configuration (10 min / 0:20)
 Jest automatically looks for files with a `test.js` suffix, or for files in a `__tests__` folder. We will use the suffix today.
 
 Let's start a React app for our testing purposes today.
 
+If you have `create-react-app` installed globally with npm, run: 
 ```bash
 $ create-react-app testing-lesson
+```
+
+Otherwise run 
+```bash
+$ npx create-react-app testing-lesson
 ```
 
 We can run `$ yarn test` right now and see what happens.
@@ -85,48 +91,50 @@ Then, let's create a `HelloWorld` subdirectory within the components directory t
 Let's create two files within it -- one called `HelloWorld.js` and one called `HelloWorld.test.js`. Right now, we want to build a component that just renders out a name that's fed to it via props. Let's write a test to see if our app is doing that!
 
 ```js
+//HelloWorld.test.js
+
 // Import React
 import React from 'react'
 import { shallow } from 'enzyme'
 
-import App from './App'
+import HelloWorld from './HelloWorld'
 
 // We will describe a block of tests
-describe('App component', () => {
-  // we will write one individual test
+describe('Hello world component', () => {
+	// we will write one individual test
   it('should render as expected', () => {
-    // Shallow rendering renders a component without rendering its subcomponents
-    // It is more efficient, but doesn't work to test multiple levels of components
-    const component = shallow(<App name={'Ali'} />)
+    // Shallow rendering renders a component without rendering any of its children
+    const component = shallow(<HelloWorld name={'Your name'} />)
     // We create an assertion within the test that checks if our component renders our name prop
-    expect(component.contains('Ali')).toBe(true)
+    expect(component.contains('Your name')).toBe(true)
   })
 })
+
 ```
 Right now, our test fails. When we run `yarn test` we get the following error:
 
-![](./images/initial-failure.png)
+![](./images/second-failure.png)
 
 
-Now, using test driven development principles, we will write the minimum code for it to pass. In this example, we just need a component that renders my name in it. Let's implement that:
+Now, using test driven development principles, we will write the minimum code for it to pass. In this example, we just need a component that renders a name in it. Let's implement that:
 
 ```js
-import React, { Component } from 'react'
-import './App.css'
+import React from 'react';
 
-class App extends Component {
-  render () {
-    return (
-      <h1>{this.props.name}</h1>
-    )
-  }
+class HelloWorld extends React.Component {
+
+	render() {
+		return (
+			<h1>{this.props.name}</h1>
+		)
+	}
 }
 
-export default App
+export default HelloWorld;
 ```
 Now our test passes!
 
-## You Do: Writing Tests for a Counter App
+## You Do: Writing Tests for a Counter App (30 min / 0:50)
 
 For this exercise, you will be using test driven development to write the React code to pass some pre-written tests. 
 
@@ -151,11 +159,20 @@ describe('Counter component', () => {
   beforeEach(() => {
     component = shallow(<Counter />)
   })
+  
+  // add the rest of the tests here
+
 })
 ```
-Now run `$ yarn test`. All tests should still be passing! No need to exit out of the tests, they will rerun automatically every time you save.
+Now run `$ yarn test`. All previous tests should still be passing! No need to exit out of the tests, they will rerun automatically every time you save.
 
 One by one, copy a test into the body of the testing block. Then, make that test succeed before copying in another one.
+
+Take a look at the documentation for Jest and Enzyme as well. They will give you some context for the english verb-like function names.
+
+* https://facebook.github.io/jest/docs/en/api.html
+* https://github.com/airbnb/enzyme/tree/master/docs/api
+
 
 1. 
 ```js
@@ -196,10 +213,12 @@ One by one, copy a test into the body of the testing block. Then, make that test
 
 [Solution](https://git.generalassemb.ly/ga-wdi-exercises/react-testing/blob/solution/src/components/Counter/Counter.js)
 
-## We Do: To Do List App
+## Break (10 min / 1:00)
+
+## We Do: To Do List App (60 min / 2:00)
 Let's now create a To Do list app using test driven development. First let's create our files.
 
-We will have two components -- a `ToDos` component which will hold individual `Todo` components.
+We will have two components -- a `ToDos.js` component which will hold individual `Todo.js` components.
 ```bash
 $ mkdir src/components/ToDos
 $ touch src/components/ToDos/ToDo{s.js,.js,s.test.js}
@@ -227,6 +246,9 @@ describe('ToDos Component', () => {
     // this time, mount instead of shallow because we will have subcomponents within our ToDos component
     component = mount(<ToDos tasks={listItems} />)
   })
+
+  // add tests here
+
 })
 ```
 This looks pretty similar to our other testing blocks, but this time in `beforeEach()` we will use `mount` instead of `shallow` since we are going to have subcomponents within our parent component.  
@@ -329,7 +351,7 @@ class ToDos extends Component {
 ...
 ```
 
-### You Do: Finish To Do App
+### You Do: Finish To Do App (30 min / 2:30)
 
 Write the following tests. After writing a test, implement the React code to pass that test.
 * `Should create a new todo on the click of a button and update the UI with it`
@@ -350,3 +372,4 @@ Bonus: look at the completed application using `yarn start` and then style the a
 ### Resources
 * [Solution Branch](https://git.generalassemb.ly/ga-wdi-exercises/react-testing/tree/solution/src)
 * [Jest](http://facebook.github.io/jest/)
+* [Enzyme](https://github.com/airbnb/enzyme/tree/master/docs/api)
