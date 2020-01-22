@@ -194,7 +194,7 @@ Take a look at the documentation for Jest and Enzyme as well. They will give you
   })
 ```
 
-[Solution](https://git.generalassemb.ly/ga-wdi-exercises/react-testing/blob/solution/src/components/Counter/Counter.js)
+[Solution](https://git.generalassemb.ly/seir-129/react-testing/blob/solution/src/components/Counter/Counter.js)
 
 ## Break (10 min / 1:00)
 
